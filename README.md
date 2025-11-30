@@ -23,4 +23,4 @@ clasp push
 
 ## License
 
-MIT License - Copyright (c) 2025 Joshua Shew
+[MIT License](LICENSE)
