@@ -1,7 +1,17 @@
 {
   "timeZone": "America/New_York",
-  "dependencies": {
-  },
+  "dependencies": {},
   "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8"
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/spreadsheets.currentonly"
+  ],
+  "addOns": {
+    "common": {
+      "name": "Sheets JSON Export",
+      "logoUrl": "https://www.gstatic.com/images/branding/product/1x/apps_script_64dp.png",
+      "useLocaleFromApp": true
+    },
+    "sheets": {}
+  }
 }
