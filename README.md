@@ -1,6 +1,6 @@
 # Sheet Snip
 
-Export Google Sheets ranges to LLM-friendly JSON format.
+Export Google Sheets ranges to LLM-friendly format.
 
 ## Development Setup
 
@@ -10,9 +10,6 @@ clasp login
 
 # Push code to Apps Script
 clasp push
-
-# Open in Apps Script editor
-clasp open
 ```
 
 ## Deployment
