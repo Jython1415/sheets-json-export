@@ -1,0 +1,15 @@
+# Version control
+.git/**
+.gitignore
+
+# Documentation
+README.md
+LICENSE
+PRIVACY.md
+
+# Config
+.claspignore
+.github/**
+
+# Plan files
+*.md

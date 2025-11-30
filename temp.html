@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        margin: 0;
+      }
+      
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      
+      .message {
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+      
+      .success {
+        color: #0f9d58;
+        font-weight: bold;
+        display: none;
+        margin-bottom: 10px;
+      }
+      
+      .preview-container {
+        flex-grow: 1;
+        margin-bottom: 15px;
+      }
+      
+      .preview {
+        width: 100%;
+        height: 150px;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        overflow: auto;
+        background-color: #f5f5f5;
+        resize: vertical;
+      }
+      
+      .button-container {
+        display: flex;
+        gap: 10px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+      
+      .copy-button {
+        background-color: #4285f4;
+        color: white;
+        flex-grow: 1;
+      }
+      
+      .copy-button:hover {
+        background-color: #3367d6;
+      }
+      
+      .close-button {
+        background-color: #f1f3f4;
+        color: #5f6368;
+      }
+      
+      .close-button:hover {
+        background-color: #e8eaed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="message">
+        Ready to copy <strong><?= dataType ?></strong> as JSON to clipboard.
+      </div>
+      
+      <div class="success" id="successMessage">
+        ✓ Copied to clipboard!
+      </div>
+      
+      <div class="preview-container">
+        <textarea class="preview" id="jsonPreview" readonly><?= jsonData ?></textarea>
+      </div>
+      
+      <div class="button-container">
+        <button class="copy-button" onclick="copyToClipboard()">
+          Copy to Clipboard
+        </button>
+        <button class="close-button" onclick="google.script.host.close()">
+          Close
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function copyToClipboard() {
+        const textarea = document.getElementById('jsonPreview');
+        textarea.select();
+        
+        try {
+          // Try modern clipboard API first
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textarea.value)
+              .then(() => {
+                showSuccess();
+              })
+              .catch(() => {
+                // Fall back to execCommand
+                fallbackCopy(textarea);
+              });
+          } else {
+            // Use execCommand for older browsers or when clipboard API is blocked
+            fallbackCopy(textarea);
+          }
+        } catch (err) {
+          fallbackCopy(textarea);
+        }
+      }
+      
+      function fallbackCopy(textarea) {
+        textarea.focus();
+        textarea.select();
+        
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+            showSuccess();
+          } else {
+            alert('Copy failed. Please manually select and copy the text.');
+          }
+        } catch (err) {
+          alert('Copy failed. Please manually select and copy the text.');
+        }
+      }
+      
+      function showSuccess() {
+        const successMsg = document.getElementById('successMessage');
+        successMsg.style.display = 'block';
+        
+        // Auto-close after 1.5 seconds
+        setTimeout(() => {
+          google.script.host.close();
+        }, 1500);
+      }
+      
+      // Auto-select text on load for easy manual copying if needed
+      window.onload = function() {
+        document.getElementById('jsonPreview').focus();
+      };
+    </script>
+  </body>
+</html>

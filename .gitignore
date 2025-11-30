@@ -1,0 +1,12 @@
+# clasp credentials (NEVER commit)
+.clasprc.json
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
