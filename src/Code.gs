@@ -1,9 +1,16 @@
 /**
+ * Runs when the add-on is installed
+ */
+function onInstall(e) {
+  onOpen(e);
+}
+
+/**
  * Adds a custom menu to Google Sheets when the spreadsheet opens
  */
-function onOpen() {
+function onOpen(e) {
   const ui = SpreadsheetApp.getUi();
-  ui.createMenu('Export to JSON')
+  ui.createAddonMenu()
     .addItem('Copy Values (JSON)', 'exportValuesJSON')
     .addItem('Copy Formulas (JSON)', 'exportFormulasJSON')
     .addItem('Copy Both (JSON)', 'exportBothJSON')
