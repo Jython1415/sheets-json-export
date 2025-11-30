@@ -34,7 +34,7 @@
       
       .preview {
         width: 100%;
-        height: 150px;
+        height: 250px;
         font-family: 'Courier New', monospace;
         font-size: 11px;
         padding: 10px;
@@ -82,7 +82,7 @@
   <body>
     <div class="container">
       <div class="message">
-        Ready to copy <strong><?= dataType ?></strong> as JSON to clipboard.
+        Ready to copy <strong><?= dataType ?></strong> to clipboard.
       </div>
       
       <div class="success" id="successMessage">
@@ -90,7 +90,7 @@
       </div>
       
       <div class="preview-container">
-        <textarea class="preview" id="jsonPreview" readonly><?= jsonData ?></textarea>
+        <textarea class="preview" id="dataPreview" readonly><?= jsonData ?></textarea>
       </div>
       
       <div class="button-container">
@@ -105,7 +105,7 @@
 
     <script>
       function copyToClipboard() {
-        const textarea = document.getElementById('jsonPreview');
+        const textarea = document.getElementById('dataPreview');
         textarea.select();
         
         try {
@@ -156,7 +156,7 @@
       
       // Auto-select text on load for easy manual copying if needed
       window.onload = function() {
-        document.getElementById('jsonPreview').focus();
+        document.getElementById('dataPreview').focus();
       };
     </script>
   </body>
